@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BaseLayoutComponent implements OnInit {
   year: number = Date.now();
-
+	links = [
+		{ title: 'Home', URL: '/' },
+		{ title: 'Tasks', URL: '/tasks' },
+		{ title: 'Employees', URL: '/employees' }
+	];
   constructor() {
 
   }

@@ -1,3 +1,11 @@
+/*
+ *  Title: app.component.ts
+ *  Author: Professor Cristy Cross
+ *  Modified by: April Auger
+ *  Date: 3 March 2020
+ *  Description: The root component for the nodebucket app.
+ */
+
 import { Component } from '@angular/core';
 
 @Component({
