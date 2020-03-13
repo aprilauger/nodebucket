@@ -11,30 +11,33 @@ const Employee = require('./models/employee');
 const router = express.Router();
 const sanitize = require('mongo-sanitize');
 
-// API to retrieve all employees
-router.get('/api/employees', (req, res) => {
-	// Get all documents from the database
-	Employee.find({}, function(error, data) {
-		if(error) throw error;
-
-		// Render a response to the user
-		res.json(data);
-	});
-});
-
-// API to retrieve a single employee
+// Gets an employee document from the database
 router.get('/api/employees/:empId', (req, res) => {
-	var id = sanitize(req.params.empId);
+	// Check to see if empId is a number
+	let numCheck = (isNaN(req.params.empId));
 
-	// Get all documents from the database
-	Employee.findOne( { empId: id }, function(error, data) {
-		if(error) throw error;
-		// Render a response to the user
-		res.json(data);
-	});
+	let id = req.params.empId;
+
+	// If the empId is null, respond with a 400 bad request status code
+	if(numCheck) {
+		res.status(400).send('The employee ID was invalid.');
+	}
+	else {
+		// Sanitize the value
+		id = sanitize(req.params.empId);
+
+		// Get the employee record from the database
+		Employee.findOne( { empId: id }, function(error, data) {
+			// If the employee record does not exist, throw an error
+			if(error) throw error;
+
+			// Return a 200 OK status code response and the data in JSON
+			res.status(200).send(data.toJSON());
+		});
+	}
 });
 
-// API to create a new employee document in the database
+//  Creates an employee document in the database
 router.post('/api/employees/create', (req, res, next) => {
 	const employee = new Employee({
 		empId: req.body.empId,
@@ -52,6 +55,7 @@ router.post('/api/employees/create', (req, res, next) => {
 		done: []
 	});
 
+	// Save the document
 	employee.save().then(result => {
 		console.log(result);
 	})
