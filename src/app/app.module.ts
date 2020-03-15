@@ -6,19 +6,21 @@
  *  Description: The root module for the nodebucket app.
  */
 
+ // Required modules
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule} from '@angular/router';
 import { AppRoutes } from './app.routing';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthGuard } from './shared/guards/auth.guards';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BaseLayoutComponent } from './shared/base-layout/base-layout.component';
 import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component';
-
-import { SignInComponent } from './pages/sign-in/sign-in.component';
+import { SignInComponent } from './pages/signin/signin.component';
 import { AddEmployeeComponent } from './pages/employee/add-employee/add-employee.component';
 import { DeleteEmployeeComponent } from './pages/employee/delete-employee/delete-employee.component';
 import { EditEmployeeComponent } from './pages/employee/edit-employee/edit-employee.component';
@@ -40,10 +42,12 @@ import {
 	MatDividerModule,
 	MatToolbarModule,
 	MatMenuModule,
-	MatSidenavModule,
 	MatCardModule
 } from '@angular/material';
 import { HomeComponent } from './pages/home/home.component';
+import { AboutComponent } from './pages/about/about.component';
+import { NavComponent } from './shared/nav/nav.component';
+import { SignOutComponent } from './pages/signout/signout.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,10 @@ import { HomeComponent } from './pages/home/home.component';
 		DeleteTaskComponent,
 		AddTaskComponent,
 		EditTaskComponent,
-		TasksComponent
+		TasksComponent,
+		AboutComponent,
+		NavComponent,
+		SignOutComponent
   ],
   imports: [
 		BrowserModule,
@@ -69,7 +76,6 @@ import { HomeComponent } from './pages/home/home.component';
 		ReactiveFormsModule,
 		RouterModule.forRoot(AppRoutes, { useHash: true, enableTracing: false, scrollPositionRestoration: 'enabled'}),
 		FlexLayoutModule,
-
 		MatFormFieldModule,
 		MatInputModule,
 		MatButtonModule,
@@ -80,10 +86,9 @@ import { HomeComponent } from './pages/home/home.component';
 		MatDividerModule,
 		MatToolbarModule,
 		MatMenuModule,
-		MatSidenavModule,
 		MatCardModule
 	],
-  providers: [],
-  bootstrap: [AppComponent]
+	providers: [AuthGuard, CookieService],
+ 	bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,19 @@
+<div class="container">
+	<div class="frm-signin">
+		<form [formGroup]="formModel" (ngSubmit)="login()">
+			<mat-card class="signin-panel frm-signin-panel">
+				<h1>Sign In</h1>
+				<mat-card-content class="frm-signin-body">
+					<mat-form-field>
+						<input type="text" matInput formControlName="employeeId" name="employeeId" placeholder="Employee ID">
+					</mat-form-field>
+				</mat-card-content>
+
+				<mat-card-actions class="frm-signin-actions">
+					<div style="text-align:right"><button mat-raised-button color="primary" type="submit">Sign In</button></div>
+				</mat-card-actions>
+			</mat-card><br />
+			<div class="error" *ngIf="msg">{{ msg }}</div>
+		</form>
+	</div>
+</div>

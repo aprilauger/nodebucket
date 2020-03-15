@@ -1,5 +1,5 @@
 /*
- *  Title: app.js
+ *  Title: routes.js
  *  Author: April Auger
  *  Date: 10 March 2020
  *  Description: The routes file for the nodebucket application.
@@ -11,7 +11,9 @@ const Employee = require('./models/employee');
 const router = express.Router();
 const sanitize = require('mongo-sanitize');
 
-// Gets an employee document from the database
+/*
+ *  API to retrieve an employee record
+ */
 router.get('/api/employees/:empId', (req, res) => {
 	// Check to see if empId is a number
 	let numCheck = (isNaN(req.params.empId));
@@ -29,16 +31,19 @@ router.get('/api/employees/:empId', (req, res) => {
 		// Get the employee record from the database
 		Employee.findOne( { empId: id }, function(error, data) {
 			// If the employee record does not exist, throw an error
-			if(error) throw error;
-
-			// Return a 200 OK status code response and the data in JSON
-			res.status(200).send(data.toJSON());
+			if(error) {
+				return next(error);
+			} else {
+				res.json(data);
+			}
 		});
 	}
 });
 
-//  Creates an employee document in the database
-router.post('/api/employees/create', (req, res, next) => {
+/*
+ *  API to create a new employee record
+ */
+router.post('/api/employees/create', (req, res) => {
 	const employee = new Employee({
 		empId: req.body.empId,
 		firstName: req.body.firstName,

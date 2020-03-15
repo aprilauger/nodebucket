@@ -1,0 +1,26 @@
+{
+	"employee": {
+		"empID": 1007,
+		"firstName": "April",
+		"lastName": "Auger",
+		"address": "1234 American River",
+		"city": "Sacramento",
+		"state": "CA",
+		"zip": 95826,
+		"department": "Web Development",
+		"position": "Web Developer",
+		"role": "employee",
+		"todo": [
+			{ "task": "Complete Node.js API" },
+			{ "task": "Complete Angular Employee sign-in page and AuthGuard setup"	}
+		],
+		"done": [
+			{ "task": "Complete Object Relational Diagram" },
+			{ "task": "Complete NoSQL Document Diagram"	},
+			{ "task": "Complete NoSQL Data Structure" },
+			{ "task": "Complete Node.js API" },
+			{ "task": "Complete Angular Employee sign-in page and AuthGuard setup" }
+		]
+	}
+}
+

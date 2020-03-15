@@ -50,9 +50,8 @@ mongoose.connect(conn, {
 }); // end mongoose connection
 
 /**
- * API(s) in routes.js file
+ * API(s) are in routes.js file
  */
-
 
 /**
  * Create and start server

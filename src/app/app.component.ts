@@ -6,6 +6,7 @@
  *  Description: The root component for the nodebucket app.
  */
 
+// Required modules
 import { Component } from '@angular/core';
 
 @Component({

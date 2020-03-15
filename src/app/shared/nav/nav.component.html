@@ -1,0 +1,17 @@
+<!-- navigation -->
+<mat-toolbar class="menu" role="header" color="primary">
+	<mat-toolbar-row>
+	<div class="container">
+		<button mat-button class="toolbar__icon-button mat-button">
+			<mat-icon>build</mat-icon>
+			<span style="margin-left: 5px !important;">nodebucket</span>
+		</button>
+
+		<button mat-button class="mat-button" routerLink="/" mat-button>Home</button>
+		<button mat-button class="mat-button" routerLink="/about" mat-button>About</button>
+		<button *ngIf="!loggedIn" mat-button class="mat-button" routerLink="/session/signin" mat-button>Sign In</button>
+		<button *ngIf="loggedIn" mat-button class="mat-button" routerLink="/session/signout" mat-button (click)="logout()">Sign Out</button>
+		<div fxFlex></div>
+		</div>
+	</mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,43 @@
+.container {
+    margin: 25px;
+}
+
+.frm-signin {
+    max-width: 300px;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.mat-divider {
+    margin-top: 1.75rem !important;
+    margin-bottom: 1.75rem !important;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    text-align: left;
+}
+
+label.label {
+    font-weight: 700;
+    padding-bottom: .5rem;
+    display: block;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-checkbox {
+    display: block;
+}
+
+.error {
+    border: 1px solid red;
+    color: red;
+    padding: 25px;
+    background-color: #ffe1e1;
+    margin-top: 1.5rem;
+}

@@ -1,3 +1,12 @@
+/*
+ *  Title: base-layout.component.ts
+ *  Author: Professor Cross
+ *  Modified By: April Auger
+ *  Date: 12 March 2020
+ *  Description: Base layout component for the nodebucket application.
+ */
+
+ // Required modules
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,11 +16,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BaseLayoutComponent implements OnInit {
   year: number = Date.now();
-	links = [
-		{ title: 'Home', URL: '/' },
-		{ title: 'Tasks', URL: '/tasks' },
-		{ title: 'Employees', URL: '/employees' }
-	];
+
   constructor() {
 
   }

@@ -1,3 +1,11 @@
+/*
+ *  Title: home.component.ts
+ *  Author: April Auger
+ *  Date: 12 March 2020
+ *  Description: Home component for the nodebucket application.
+ */
+
+// Required modules
 import { Component, OnInit } from '@angular/core';
 
 @Component({

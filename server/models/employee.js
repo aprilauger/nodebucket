@@ -6,14 +6,14 @@
  */
 
 // Required module
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 // Define a schema
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 // Create the Employee Schema
-var EmployeeSchema = new Schema({
-	empId: { type: String, required: true },
+const EmployeeSchema = new Schema({
+	empId: { type: String, required: true, unique: true, index: true, dropDups: true },
 	firstName: { type: String, required: true },
 	lastName: { type: String, required: true },
 	address: { type: String },
@@ -30,7 +30,7 @@ var EmployeeSchema = new Schema({
 });
 
 // Attach the EmployeeSchema to an Employee Model
-var Employee = mongoose.model('Employee', EmployeeSchema);
+const Employee = mongoose.model('Employee', EmployeeSchema);
 
 // Make the model available for other modules to require
 module.exports = Employee;
