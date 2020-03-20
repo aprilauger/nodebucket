@@ -7,6 +7,7 @@
 
 // Required module
 const mongoose = require('mongoose');
+const item = require('./item');
 
 // Define a schema
 const Schema = mongoose.Schema;
@@ -23,8 +24,8 @@ const EmployeeSchema = new Schema({
 	department: { type: String },
 	position: { type: String },
 	role: { type: String, default: "employee" },
-	todo: { type: Array },
-	done: { type: Array }
+	todo: [item],
+	done: [item]
 }, {
 	collection: "employees"
 });

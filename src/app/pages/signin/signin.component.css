@@ -1,9 +1,9 @@
-.container {
-    margin: 25px;
+h2 {
+    text-align: center;
 }
 
-.frm-signin {
-    max-width: 300px;
+.container {
+    margin-top: 25px;
 }
 
 .mat-form-field {
@@ -40,4 +40,19 @@ label.label {
     padding: 25px;
     background-color: #ffe1e1;
     margin-top: 1.5rem;
+}
+
+.frm-signin {
+    width: 100%;
+    max-width: 350px;
+}
+
+.mat-error {
+    color: #f44336;
+    font-size: .8rem;
+}
+
+.frm-signin-actions button {
+	width: 100%;
+	box-shadow: none;
 }

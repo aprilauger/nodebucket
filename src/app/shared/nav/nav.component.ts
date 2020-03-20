@@ -7,8 +7,8 @@
 
  // Required modules
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-nav',
@@ -17,19 +17,16 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class NavComponent implements OnInit {
 
-	// Properties
-	loggedIn = this.cookieService.get('session_user')
-
-	constructor(private router: Router, private cookieService: CookieService) { }
+	constructor(private authService: AuthService, private cookieService: CookieService) { }
 
 	ngOnInit() {
 	}
 
-	// Logout function removes the session_user cookie
-	logout() {
-		if (this.loggedIn) {
-			this.cookieService.delete('session_user');
-				console.log(this.cookieService.check('session_user'))
-		}
+	// Properties
+	signedIn: string = this.cookieService.get('session_user');
+	firstName: string = this.cookieService.get('session_first_name');
+
+	public signOut() {
+		this.authService.signOut();
 	}
 }

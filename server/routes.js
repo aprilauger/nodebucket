@@ -12,63 +12,220 @@ const router = express.Router();
 const sanitize = require('mongo-sanitize');
 
 /*
- *  API to retrieve an employee record
+ *  FindEmployeeById API
+ *  Params: empID, callback function
+ *  API to retrieve an employee record.
  */
-router.get('/api/employees/:empId', (req, res) => {
-	// Check to see if empId is a number
-	let numCheck = (isNaN(req.params.empId));
+router.get('/api/employees/:empId', (request, response) => {
+	// Sanitize the parameter value.
+	let id = sanitize(request.params.empId);
 
-	let id = req.params.empId;
+	// Check to see if the parameter value is a number
+	let notValid = (isNaN(id));
 
-	// If the empId is null, respond with a 400 bad request status code
-	if(numCheck) {
-		res.status(400).send('The employee ID was invalid.');
+	// If the parameter value is not a number, respond with a 400 status code.
+	if(notValid == true) {
+		return response.status(400).send('The request was not valid.');
 	}
 	else {
-		// Sanitize the value
-		id = sanitize(req.params.empId);
-
-		// Get the employee record from the database
-		Employee.findOne( { empId: id }, function(error, data) {
-			// If the employee record does not exist, throw an error
-			if(error) {
-				return next(error);
+		// Find the document in the database.
+		Employee.findOne({ 'empId': id }, 'firstName lastName address city state zip department position role', function(error, data) {
+			// If there's an error, respond with a 500 status code.
+			if (error) {
+				response.status(500).send(error);
+			// If the document is not found, respond with a message.
+			} else if (!data) {
+				response.status(404).send('The employee was not found.');
+			// If the document is found, respond with json.
 			} else {
-				res.json(data);
+				response.status(200).json(data);
+			}
+		});
+	}
+});
+
+
+/*
+ *  FindAllTasks API
+ *  API to retrieve all tasks
+ */
+router.get('/api/employees/:empId/tasks', (request, response) => {
+	// Sanitize the parameter value.
+	let id = sanitize(request.params.empId);
+
+	// Check to see if the parameter value is a number
+	let notValid = (isNaN(id));
+
+	// If the parameter values is not a number, respond with a 400 error.
+	if(notValid == true) {
+		response.status(400).json('The request was not valid.');
+	}
+	else {
+		// Find the document in the database.
+		Employee.findOne( { 'empId': id }, 'empId todo done', function(error, data) {
+			// If there's an error, respond with a 500 status code.
+			if (error) {
+				response.status(500).send(error);
+			// If the document is not found, respond with a message.
+			} else if (!data) {
+				response.status(404).send('The employee was not found.');
+			// If the document is found, respond with json.
+			} else {
+				response.status(200).json(data);
 			}
 		});
 	}
 });
 
 /*
- *  API to create a new employee record
+ *  CreateTask API
+ *  API to create a task
  */
-router.post('/api/employees/create', (req, res) => {
-	const employee = new Employee({
-		empId: req.body.empId,
-		firstName: req.body.firstName,
-		lastName: req.body.lastName,
-		address: req.body.address,
-		city: req.body.city,
-		state: req.body.state,
-		zip: req.body.zip,
-		phone: req.body.phone,
-		department: req.body.department,
-		position: req.body.position,
-		role: 'employee',
-		todo: [],
-		done: []
-	});
+router.post('/api/employees/:empId/tasks', function(request, response, next) {
+	// Sanitize the parameter value.
+	let id = sanitize(request.params.empId);
 
-	// Save the document
-	employee.save().then(result => {
-		console.log(result);
-	})
-	.catch(err => console.log(err));
+	// Check to see if the parameter value is a number
+	let notValid = (isNaN(id));
 
-	res.status(201).json({
-		message: `${req.body.firstName} ${req.body.firstName} has been saved to the MongoDB database.`
-	});
+	// If the parameter values is not a number, respond with a 400 error.
+	if(notValid == true) {
+		response.status(400).json('The request was not valid.');
+	}
+	// Create a new task.
+	else {
+		// Find the document in the database.
+		Employee.findOne( { 'empId': id }, function(error, data) {
+			// If there's an error, respond with a 500 status code.
+			if (error) {
+				response.status(500).send(error);
+			} else {
+				// Store the new task
+				const item = {
+					text: request.body.text
+				};
+
+				// Push the new item into the todo array.
+				data.todo.push(item);
+
+				// Save the new todo array to the database.
+				data.save(function(err, data) {
+					if (err) {
+						response.status(500).json(error);
+					} else {
+						response.status(200).json(data);
+					}
+				});
+			}
+		});
+	}
+});
+
+
+/*
+ *  UpdateTask API
+ *  API to update a task
+ */
+router.put('/api/employees/:empId/tasks', function(request, response, next) {
+	// Sanitize the parameter value.
+	let id = sanitize(request.params.empId);
+
+	// Check to see if the parameter value is a number
+	let notValid = (isNaN(id));
+
+	// If the parameter values is not a number, respond with a 400 error.
+	if(notValid == true) {
+		response.status(400).json('The request was not valid.');
+	}
+	// Update a task.
+	else {
+		// Find the document in the database.
+		Employee.findOne( { 'empId': id }, 'empId todo done', function(error, data) {
+			// If there's a server error, respond with a 500 error.
+			if (error) {
+				response.status(500).json(error);
+			// Update a task.
+			} else {
+				// Set the new values for the todo and done arrays
+				data.set({
+					todo: request.body.todo,
+					done: request.body.done
+				});
+
+				// Save the array in the database
+				data.save(function(err, data) {
+					if (err) {
+						response.status(500).json(error);
+					} else {
+						response.status(200).json(data);
+					}
+				});
+			}
+		});
+	}
+});
+
+
+/*
+ *  DeleteTask API
+ *  API to delete a task
+ */
+router.delete('/api/employees/:empId/tasks/:taskId', function(request, response) {
+	// Sanitize the parameter value.
+	let id = sanitize(request.params.empId);
+
+	// Check to see if the parameter value is a number
+	let notValid = (isNaN(id));
+
+	// If the parameter values is not a number, respond with a 400 error.
+	if(notValid == true) {
+		response.status(400).json('The request was not valid.');
+	}
+	// Delete a task.
+	else {
+		// Find the document in the database.
+		Employee.findOne( { 'empId': id }, function(error, data) {
+			// If the employee document does not exist, throw an error
+			if (error) {
+				response.status(500).json(error);
+				// Delete a task.
+			} else {
+				const todoItem = data.todo.find(item => item._id.toString() === request.params.taskId);
+				const doneItem = data.done.find(item => item._id.toString() === request.params.taskId);
+
+				if(todoItem) {
+					// Remove the task from the todo array
+					data.todo.id(todoItem._id).remove();
+
+					// Save the updated todo array
+					data.save(function(err, todoTasks) {
+						if(err) {
+							response.status(500).json(error);
+						} else {
+							response.json(todoTasks);
+						}
+					});
+				} else if (doneItem) {
+					// Remove the task from the done array
+					data.done.id(doneItem._id).remove();
+
+					// Save the updated done array
+					data.save(function(err, doneTasks) {
+						if(err) {
+							response.status(500).json(error);
+						} else {
+							response.json(doneTasks);
+						}
+					});
+				} else {
+					response.status(200).send({
+						'type': 'warning',
+						'text': 'Unable to locate ${request.params.taskId}'
+					});
+				}
+			}
+		});
+	}
 });
 
 module.exports = router;

@@ -9,9 +9,10 @@
 
 		<button mat-button class="mat-button" routerLink="/" mat-button>Home</button>
 		<button mat-button class="mat-button" routerLink="/about" mat-button>About</button>
-		<button *ngIf="!loggedIn" mat-button class="mat-button" routerLink="/session/signin" mat-button>Sign In</button>
-		<button *ngIf="loggedIn" mat-button class="mat-button" routerLink="/session/signout" mat-button (click)="logout()">Sign Out</button>
-		<div fxFlex></div>
-		</div>
+		<button *ngIf="!signedIn" mat-button class="mat-button" routerLink="/session/signin" mat-button>Sign In</button>
+		<button *ngIf="signedIn" mat-button class="mat-button" routerLink="/session/signout" mat-button (click)="signOut()">Sign Out</button>
+		<div class="float-right" *ngIf="firstName">Welcome {{ firstName }}</div>
+
+	</div>
 	</mat-toolbar-row>
 </mat-toolbar>
