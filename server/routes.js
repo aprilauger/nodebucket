@@ -47,7 +47,8 @@ router.get('/api/employees/:empId', (request, response) => {
 
 /*
  *  FindAllTasks API
- *  API to retrieve all tasks
+ *  Params: empID, callback function
+ *  API to retrieve all tasks.
  */
 router.get('/api/employees/:empId/tasks', (request, response) => {
 	// Sanitize the parameter value.
@@ -79,7 +80,8 @@ router.get('/api/employees/:empId/tasks', (request, response) => {
 
 /*
  *  CreateTask API
- *  API to create a task
+ *  Params: empID, callback function
+ *  API to create a task.
  */
 router.post('/api/employees/:empId/tasks', function(request, response, next) {
 	// Sanitize the parameter value.
@@ -124,9 +126,10 @@ router.post('/api/employees/:empId/tasks', function(request, response, next) {
 
 /*
  *  UpdateTask API
- *  API to update a task
+ *  Params: empID, callback function
+ *  API to update a task.
  */
-router.put('/api/employees/:empId/tasks', function(request, response, next) {
+router.put('/api/employees/:empId/tasks/:taskId', function(request, response, next) {
 	// Sanitize the parameter value.
 	let id = sanitize(request.params.empId);
 
@@ -168,6 +171,7 @@ router.put('/api/employees/:empId/tasks', function(request, response, next) {
 
 /*
  *  DeleteTask API
+ *  Params: empID, taskId, callback function
  *  API to delete a task
  */
 router.delete('/api/employees/:empId/tasks/:taskId', function(request, response) {
