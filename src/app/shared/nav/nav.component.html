@@ -12,7 +12,6 @@
 		<button *ngIf="!signedIn" mat-button class="mat-button" routerLink="/session/signin" mat-button>Sign In</button>
 		<button *ngIf="signedIn" mat-button class="mat-button" routerLink="/session/signout" mat-button (click)="signOut()">Sign Out</button>
 		<div class="float-right" *ngIf="firstName">Welcome {{ firstName }}</div>
-
 	</div>
 	</mat-toolbar-row>
 </mat-toolbar>

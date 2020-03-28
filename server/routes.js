@@ -23,7 +23,7 @@ router.get('/api/employees/:empId', (request, response) => {
 	// Check to see if the parameter value is a number
 	let notValid = (isNaN(id));
 
-	// If the parameter value is not a number, respond with a 400 status code.
+	// If the parameter is not a number, respond with a 400 error.
 	if(notValid == true) {
 		return response.status(400).send('The request was not valid.');
 	}
@@ -57,7 +57,7 @@ router.get('/api/employees/:empId/tasks', (request, response) => {
 	// Check to see if the parameter value is a number
 	let notValid = (isNaN(id));
 
-	// If the parameter values is not a number, respond with a 400 error.
+	// If the parameter is not a number, respond with a 400 error.
 	if(notValid == true) {
 		response.status(400).json('The request was not valid.');
 	}
@@ -90,7 +90,7 @@ router.post('/api/employees/:empId/tasks', function(request, response, next) {
 	// Check to see if the parameter value is a number
 	let notValid = (isNaN(id));
 
-	// If the parameter values is not a number, respond with a 400 error.
+	// If the parameter is not a number, respond with a 400 error.
 	if(notValid == true) {
 		response.status(400).json('The request was not valid.');
 	}
@@ -127,23 +127,23 @@ router.post('/api/employees/:empId/tasks', function(request, response, next) {
 /*
  *  UpdateTask API
  *  Params: empID, callback function
- *  API to update a task.
+ *  API to update tasks.
  */
-router.put('/api/employees/:empId/tasks/:taskId', function(request, response, next) {
+router.put('/api/employees/:empId/tasks/', function(request, response) {
 	// Sanitize the parameter value.
 	let id = sanitize(request.params.empId);
 
 	// Check to see if the parameter value is a number
 	let notValid = (isNaN(id));
 
-	// If the parameter values is not a number, respond with a 400 error.
+	// If the parameter is not a number, respond with a 400 error.
 	if(notValid == true) {
 		response.status(400).json('The request was not valid.');
 	}
 	// Update a task.
 	else {
 		// Find the document in the database.
-		Employee.findOne( { 'empId': id }, 'empId todo done', function(error, data) {
+		Employee.findOne( { 'empId': id }, function(error, data) {
 			// If there's a server error, respond with a 500 error.
 			if (error) {
 				response.status(500).json(error);
@@ -151,10 +151,9 @@ router.put('/api/employees/:empId/tasks/:taskId', function(request, response, ne
 			} else {
 				// Set the new values for the todo and done arrays
 				data.set({
-					todo: request.body.todo,
-					done: request.body.done
+					'todo': request.body.todo,
+					'done': request.body.done
 				});
-
 				// Save the array in the database
 				data.save(function(err, data) {
 					if (err) {
@@ -181,7 +180,7 @@ router.delete('/api/employees/:empId/tasks/:taskId', function(request, response)
 	// Check to see if the parameter value is a number
 	let notValid = (isNaN(id));
 
-	// If the parameter values is not a number, respond with a 400 error.
+	// If the parameter is not a number, respond with a 400 error.
 	if(notValid == true) {
 		response.status(400).json('The request was not valid.');
 	}

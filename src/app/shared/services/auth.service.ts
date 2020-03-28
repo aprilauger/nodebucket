@@ -10,7 +10,6 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { NavComponent } from '../nav/nav.component';
 
 @Injectable({
 	providedIn: 'root',
@@ -18,6 +17,21 @@ import { NavComponent } from '../nav/nav.component';
 export class AuthService {
 
 	constructor(private router: Router, private cookieService: CookieService, private http: HttpClient) {}
+
+	/*
+	 *  getSessionCookie()
+	 *  Params: none
+	 *  Response: string
+	 *  Description: Returns the session_user cookie.
+	 */
+	public getSessionCookie(): string {
+		const sessionUser = this.cookieService.get('session_user');
+		if (sessionUser) {
+			return sessionUser;
+		} else {
+			return null;
+		}
+	}
 
 	/*
 	 *  signInCheck()

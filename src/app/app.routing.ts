@@ -15,6 +15,7 @@ import { TasksComponent } from './pages/task/tasks/tasks.component';
 import { AuthLayoutComponent } from './shared/auth-layout/auth-layout.component';
 import { AuthGuard } from './shared/guards/auth.guards';
 import { AboutComponent } from './pages/about/about.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { SignOutComponent } from './pages/signout/signout.component';
 
 // Application routes
@@ -23,8 +24,8 @@ export const AppRoutes: Routes = [
 		path: '',
 		component: BaseLayoutComponent,
 		children: [
-			{ path: '', component: HomeComponent },
-			{ path: 'about', component: AboutComponent }
+			{ path: '', component: HomeComponent, canActivate: [AuthGuard] },
+			{ path: 'about', component: AboutComponent },
 		]
 	},
 	{
@@ -32,8 +33,12 @@ export const AppRoutes: Routes = [
 		component: AuthLayoutComponent,
 		children: [
 			{ path: 'signin', component: SignInComponent },
-			{ path: 'signout', component: SignOutComponent },
+			{ path: 'signout', component: SignOutComponent, canActivate: [AuthGuard] },
 			{ path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
-		]
+		],
+	},
+	{
+		path: '**',
+		component: NotFoundComponent
 	}
 ];

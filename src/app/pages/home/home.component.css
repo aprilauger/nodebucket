@@ -1,13 +1,37 @@
 .main-welcome {
-  margin-top: 30px;
+    margin-top: 30px;
 }
 
 .title {
-  text-align: center;
-  font-weight: lighter;
+    text-align: center;
+    font-weight: lighter;
 }
 
 .subtitle {
-  text-align: center;
-  font-size: 14px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.task-title.mat-card-title {
+	margin-left: 16px;
+	margin-right: 16px;
+}
+
+.wrapper {
+    margin-top: 1.5rem;
+}
+
+.mat-list-base .mat-list-item,
+.mat-list-base .mat-list-option {
+    display: block;
+    height: auto;
+}
+
+.mat-card.task {
+    margin-bottom: 1.25rem;
+    background-color: #f7f7f7;
+}
+
+.mat-card.task .mat-card-content {
+    font-size: 1.25rem;
 }

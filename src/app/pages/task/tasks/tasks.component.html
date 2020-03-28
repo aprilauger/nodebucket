@@ -2,12 +2,23 @@
 	<h1>Tasks</h1>
 	<tr>
 		<td>
-			<h2>Todo</h2>
+			<mat-dialog-content [formGroup]="form">
+				<mat-form-field>
+					<input matInput placeholder="Name" formControlName="text" (keydown.enter)="submit()" />
+				</mat-form-field>
+			</mat-dialog-content>
+
+			<div><small *ngIf="form.controls['text'].hasError('minlength') && form.controls['text'].touched">The name must be at least three characters long.</small></div>
+
+			<mat-dialog-actions>
+				<button mat-button (click)="close()">Close</button>
+				<button mat-button [disabled]="!form.valid" (click)="submit()">Saved</button>
+			</mat-dialog-actions>
+
+
 		</td>
 		<td>
-			<h2>Done</h2>
 
 		</td>
 	</tr>
-
 </div>

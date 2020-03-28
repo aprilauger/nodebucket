@@ -1,19 +1,66 @@
-<div class="hdr">
-	<div class="container">
-		<tr>
-			<td class="col-md-12"><h1>Task Management System</h1></td>
-		</tr>
+<div fxLayout="row" fxLayoutGap="25px" class="tasks-container">
+	<mat-card fxFlex class="mat-elevation-z=0">
+		<div class="wrapper">
+			<mat-card-title class="task-title">
+				ToDo
+				<div fxFlex></div>
+				<button [matMenuTriggerFor]="taskMenu" mat-button xposition="before">
+					<mat-icon color="primary">add_box</mat-icon>
+				</button>
+				<mat-menu #taskMenu="matMenu" x-position="before">
+					<button mat-menu-item (click)="openCreateTaskDialog()">Create task</button>
+				</mat-menu>
+			</mat-card-title>
+
+			<mat-card-content>
+				<mat-list cdkDropList #todoList="cdkDropList" [cdkDropListData]="todo"
+					[cdkDropListConnectedTo]="[doneList]" class="example-list" (cdkDropListDropped)="drop($event)" mat-list>
+					<mat-list-item *ngFor="let item of todo" cdkDrag>
+						<mat-card class="task" fxFlex>
+							<mat-card-content>
+								{{item.text}}
+								<div fxFlex></div>
+								<button [matMenuTriggerFor]="doneOptionsMenu" mat-icon-button class="ml-xs">
+									<mat-icon class="icon" color="primary">delete</mat-icon>
+								</button>
+								<mat-menu #doneOptionsMenu="matMenu" x-position="before">
+									<button (click)="delete(item._id)" mat-menu-item>
+										Remove
+									</button>
+								</mat-menu>
+							</mat-card-content>
+						</mat-card>
+					</mat-list-item>
+				</mat-list>
+			</mat-card-content>
+		</div>
+	</mat-card>
+
+	<div fxFlex>
+	<mat-card fxFlex class="mat-elevation-z=0">
+			<mat-card-title class="task-title">
+				Done
+			</mat-card-title>
+			<mat-card-content>
+				<mat-list cdkDropList #doneList="cdkDropList" [cdkDropListData]="done" [cdkDropListConnectedTo]="[todoList]" (cdkDropListDropped)="drop($event)">
+					<mat-list-item *ngFor="let item of done" cdkDrag>
+						<mat-card class="task" fxFlex>
+							<mat-card-content>
+								{{item.text}}
+								<div fxFlex></div>
+								<button [matMenuTriggerFor]="doneOptionsMenu" mat-icon-button class="ml-xs">
+									<mat-icon class="icon" color="primary">delete</mat-icon>
+								</button>
+								<mat-menu #doneOptionsMenu="matMenu" x-position="before">
+									<button (click)="delete(item._id)" mat-menu-item>
+										Remove
+									</button>
+								</mat-menu>
+							</mat-card-content>
+						</mat-card>
+					</mat-list-item>
+				</mat-list>
+			</mat-card-content>
+		</mat-card>
 	</div>
-</div>
-<div class="container">
-	<tr>
-		<td class="col-md-12">
-			<h2 class="title">
-				Welcome to WEB 450's - nodebucket Project <br />
-				<span class="subtitle">
-				Pay close attention to the requirements, double and triple check the files for code attribution, and do not wait unitl the last minute to begin working on each item.
-				</span>
-			</h2>
-		</td>
-	</tr>
 </div>
