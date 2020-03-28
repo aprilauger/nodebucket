@@ -115,7 +115,7 @@ export class HomeComponent implements OnInit {
 
 	/*
 	 *  updateTask()
-	 *  Params: empId
+	 *  Params: empId, todo, done
 	 *  Response: Updated tasks
 	 *  Description: Updates a task.
 	 */

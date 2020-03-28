@@ -8,7 +8,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ItemModel } from '../models/item.model';
 import { ItemListModel } from '../models/item-list.model';
 import { EmployeeModel } from '../models/employee.model';
 
@@ -52,7 +51,7 @@ export class EmployeeService {
 
 	/*
 	 *  deleteTask()
-	 *  Params: empId
+	 *  Params: empId, taskId
 	 *  Response: Observable<ItemListModel>
 	 *  Description: Deletes a task.
 	 */
