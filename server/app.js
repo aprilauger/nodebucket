@@ -31,7 +31,7 @@ app.use(routes);
 /**
  * Variables
  */
-const port = 3000; // server port
+const port = process.env.PORT || 3000;
 
 // Database connection string
 const conn = 'mongodb+srv://aauger:wNoz7FuS2dYd2aHb@buwebdev-cluster-1-bzl71.mongodb.net/nodebucket?retryWrites=true&w=majority';
