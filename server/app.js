@@ -7,7 +7,7 @@
  */
 
 /**
- * Require statements
+ * Require modules
  */
 const express = require('express');
 const http = require('http');
