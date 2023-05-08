@@ -30,7 +30,7 @@
     "express": "^4.17.1",
     "hammerjs": "^2.0.8",
     "mongo-sanitize": "^1.1.0",
-    "mongoose": "^5.9.4",
+    "mongoose": "^5.13.15",
     "morgan": "^1.9.1",
     "ngx-cookie-service": "^2.4.0",
     "rxjs": "~6.4.0",
